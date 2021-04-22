@@ -61,6 +61,8 @@ export function fillLevelsByDirectionLeaves(nodes: Map<Id, Node>): Levels {
     // Pick only leaves (nodes without children).
     (node): boolean =>
       node.edges
+        // Don't take norank edges into account.
+        .filter((edge): boolean =>edge.norank != true)
         // Take only visible nodes into account.
         .filter((edge): boolean => nodes.has(edge.toId))
         // Check that all edges lead to this node (leaf).
@@ -85,6 +87,8 @@ export function fillLevelsByDirectionRoots(nodes: Map<Id, Node>): Levels {
     // Pick only roots (nodes without parents).
     (node): boolean =>
       node.edges
+        // Don't take norank edges into account.
+        .filter((edge): boolean =>edge.norank != true)
         // Take only visible nodes into account.
         .filter((edge): boolean => nodes.has(edge.toId))
         // Check that all edges lead from this node (root).
